@@ -12,34 +12,16 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
 
         console.log('Loaded')
         // first argument is name of source. second argument is type. data is where the data is stored. This is where I need to put municipality boundary data
-        map.addSource('municipalities', {
+        //add data from qgis
+        map.addSource('mass-municipal-borders', {
             'type': 'geojson',
-            'data': 'https://docs.mapbox.com/mapbox-gl-js/assets/us_states.geojson'
+            'data': 'data/mass-municipal-borders.geojson'
         });
 
-        //add data from qgis
-        map.addSource('Mass Municipality Borders', {
-            'type': 'geojson',
-            'data': 'Mass Municipality Borders.geojson'
-        })
-
-        //add line to qgis data STOPPED HERE CHANGE FILE NAMES TO LOWER CASE
         map.addLayer({
-            'id': 'Mass Municipality Borders-line',
-            'type': 'line',
-            'source': 'Mass Municipality Borders',
-            'layout': {},
-            'paint': {
-                'line-color': '#000',
-            }
-        }, 'building-number-label');
-
-        // The feature-municipality dependent fill-opacity expression will render the hover effect
-        // when a feature's hover municipality is set to true. Check out mapbox style spec for help. Building number label is the layer of the map that my layers will go on top of
-        map.addLayer({
-            'id': 'municipality-fills',
+            'id': 'mass-municipal-borders-fills',
             'type': 'fill',
-            'source': 'municipalities',
+            'source': 'mass-municipal-borders',
             'layout': {},
             'paint': {
                 'fill-color': '#627BC1',
@@ -53,15 +35,18 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         }, 'building-number-label');
 
         map.addLayer({
-            'id': 'municipality-borders',
+            'id': 'mass-municipal-borders-line',
             'type': 'line',
-            'source': 'municipalities',
+            'source': 'mass-municipal-borders',
             'layout': {},
             'paint': {
-                'line-color': '#627BC1',
-                'line-width': 2
+                'line-color': '#000',
             }
         }, 'building-number-label');
+
+        // The feature-municipality dependent fill-opacity expression will render the hover effect
+        // when a feature's hover municipality is set to true. Check out mapbox style spec for help. Building number label is the layer of the map that my layers will go on top of
+        
         // list all the layers on the map
         console.log(
             map.getStyle().layers
@@ -69,17 +54,17 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
 
         // When the user moves their mouse over the state-fill layer, we'll update the
         // feature state for the feature under the mouse.
-        map.on('mousemove', 'municipality-fills', (e) => {
+        map.on('mousemove', 'mass-municipal-borders-fills', (e) => {
             if (e.features.length > 0) {
                 if (hoveredPolygonId !== null) {
                     map.setFeatureState(
-                        { source: 'municipalities', id: hoveredPolygonId },
+                        { source: 'mass-municipal-borders', id: hoveredPolygonId },
                         { hover: false }
                     );
                 }
                 hoveredPolygonId = e.features[0].id;
                 map.setFeatureState(
-                    { source: 'municipalities', id: hoveredPolygonId },
+                    { source: 'mass-municipal-borders', id: hoveredPolygonId },
                     { hover: true }
                 );
             }
@@ -87,10 +72,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
 
         // When the mouse leaves the state-fill layer, update the feature state of the
         // previously hovered feature.
-        map.on('mouseleave', 'municipality-fills', () => {
+        map.on('mouseleave', 'mass-municipal-borders-fills', () => {
             if (hoveredPolygonId !== null) {
                 map.setFeatureState(
-                    { source: 'municipalities', id: hoveredPolygonId },
+                    { source: 'mass-municipal-borders', id: hoveredPolygonId },
                     { hover: false }
                 );
             }
