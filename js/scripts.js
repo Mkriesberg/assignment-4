@@ -6,7 +6,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         center: [-71.07236, 42.33988],
         zoom: 10
     });
-    let hoveredPolygonId = null;
+    
 
     map.on('load', () => {
 
@@ -15,7 +15,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         //add data from qgis
         map.addSource('mass-municipal-borders', {
             'type': 'geojson',
-            'data': 'data/mass-municipal-borders.geojson'
+            'data': 'data/mass-municipal-borders.geojson',
+            generateID: true
         });
 
         map.addLayer({
@@ -32,7 +33,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
                     0.5
                 ]
             }
-        }, 'building-number-label');
+        });
 
         map.addLayer({
             'id': 'mass-municipal-borders-line',
@@ -42,7 +43,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             'paint': {
                 'line-color': '#000',
             }
-        }, 'building-number-label');
+        });
+
+        let hoveredPolygonId = null;
 
         // The feature-municipality dependent fill-opacity expression will render the hover effect
         // when a feature's hover municipality is set to true. Check out mapbox style spec for help. Building number label is the layer of the map that my layers will go on top of
@@ -70,6 +73,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             }
         });
 
+        map.getCanvas().style.cursor = 'pointer'
+
         // When the mouse leaves the state-fill layer, update the feature state of the
         // previously hovered feature.
         map.on('mouseleave', 'mass-municipal-borders-fills', () => {
@@ -80,5 +85,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
                 );
             }
             hoveredPolygonId = null;
+
+            map.getCanvas().style.cursor = ''
         });
+
     });
