@@ -13,16 +13,16 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         console.log('Loaded')
         // first argument is name of source. second argument is type. data is where the data is stored. This is where I need to put municipality boundary data
         //add data from qgis
-        map.addSource('mass-municipal-borders-v2', {
+        map.addSource("mass-municipal-borders-v2", {
             'type': 'geojson',
-            'data': 'data/mass-municipal-borders-v2.geojson',
+            'data': "data/mass-municipal-borders-v2.geojson",
             generateId: true
         });
 
         map.addLayer({
             'id': 'mass-municipal-borders-fills',
             'type': 'fill',
-            'source': 'mass-municipal-borders-v2',
+            'source': "mass-municipal-borders-v2",
             'layout': {},
             'paint': {
                 'fill-color': '#627BC1',
@@ -38,7 +38,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         map.addLayer({
             'id': 'mass-municipal-borders-line',
             'type': 'line',
-            'source': 'mass-municipal-borders-v2',
+            'source': "mass-municipal-borders-v2",
             'layout': {},
             'paint': {
                 'line-color': '#000',
@@ -61,13 +61,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             if (e.features.length > 0) {
                 if (hoveredPolygonId !== null) {
                     map.setFeatureState(
-                        { source: 'mass-municipal-borders-v2', id: hoveredPolygonId },
+                        { source: "mass-municipal-borders-v2", id: hoveredPolygonId },
                         { hover: false }
                     );
                 }
                 hoveredPolygonId = e.features[0].id;
                 map.setFeatureState(
-                    { source: 'mass-municipal-borders-v2', id: hoveredPolygonId },
+                    { source: "mass-municipal-borders-v2", id: hoveredPolygonId },
                     { hover: true }
                 );
             }
@@ -80,7 +80,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         map.on('mouseleave', 'mass-municipal-borders-fills', () => {
             if (hoveredPolygonId !== null) {
                 map.setFeatureState(
-                    { source: 'mass-municipal-borders-v2', id: hoveredPolygonId },
+                    { source: "mass-municipal-borders-v2", id: hoveredPolygonId },
                     { hover: false }
                 );
             }
