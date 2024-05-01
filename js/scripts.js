@@ -19,7 +19,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             generateId: true
         });
 
-        // Deduplicate GeoJSON data based on town name
+        /* Deduplicate GeoJSON data based on town name. Need to analyze further
     var townsData = {};
     townsData.type = 'FeatureCollection';
     townsData.features = [];
@@ -29,7 +29,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             townsData[townName] = feature;
             townsData.features.push(feature);
         }
-    });
+    }); */
 
         map.addLayer({
             'id': 'mass-municipal-borders-fills',
