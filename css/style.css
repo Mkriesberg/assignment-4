@@ -26,3 +26,13 @@ body { margin: 0; padding: 0; }
       font-weight: 700;
       margin-bottom:8px;
   }
+
+  /* Style the labels */
+  
+  .label {
+            font: 12px/20px 'Arial', sans-serif;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }

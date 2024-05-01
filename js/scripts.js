@@ -45,6 +45,21 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             }
         });
 
+        map.addLayer({
+            id: 'mass-municipal-borders-labels',
+            type: 'symbol',
+            source: "mass-municipal-borders",
+            layout: {
+                'text-field': ['get', 'TOWN'],
+                'text-font': ['Arial Unicode MS Bold'],
+                'text-size': 12
+            },
+            paint: {
+                'text-color': '#000'
+            }
+        });
+
+
         let hoveredPolygonId = null;
 
         // The feature-municipality dependent fill-opacity expression will render the hover effect
