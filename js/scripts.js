@@ -19,6 +19,18 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             generateId: true
         });
 
+        // Deduplicate GeoJSON data based on town name
+    var townsData = {};
+    townsData.type = 'FeatureCollection';
+    townsData.features = [];
+    map.getSource('towns')._data.features.forEach(function (feature) {
+        var townName = feature.properties.TOWN;
+        if (!townsData[townName]) {
+            townsData[townName] = feature;
+            townsData.features.push(feature);
+        }
+    });
+
         map.addLayer({
             'id': 'mass-municipal-borders-fills',
             'type': 'fill',
