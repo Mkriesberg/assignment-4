@@ -23,7 +23,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
     var townsData = {};
     townsData.type = 'FeatureCollection';
     townsData.features = [];
-    map.getSource('towns')._data.features.forEach(function (feature) {
+    map.getSource('mass-municipal-borders')._data.features.forEach(function (feature) {
         var townName = feature.properties.TOWN;
         if (!townsData[townName]) {
             townsData[townName] = feature;
