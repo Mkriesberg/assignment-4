@@ -122,6 +122,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             console.log(clickedFeature)
             $("#town").text(clickedFeature.properties.TOWN)
             $("#requirement").text(clickedFeature.properties.Requirement)
+            $("#zoning-capacity").text(clickedFeature.properties.ZoneCapacity)
         });
         
 
