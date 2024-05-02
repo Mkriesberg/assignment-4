@@ -2,7 +2,7 @@ body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 
 /* add a floating sidebar in the top left */
-.sidebar {
+.intro-sidebar {
     position: absolute;
     width: 250px;
     z-index: 10;
@@ -24,8 +24,7 @@ body { margin: 0; padding: 0; }
     margin-bottom: 15px;
 }
   
-  /* style the title */
-  .title {
+#title {
       font-size: 20px;
       font-weight: 700;
       margin-bottom:8px;
@@ -40,3 +39,27 @@ body { margin: 0; padding: 0; }
             border-radius: 3px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+/* Town info sidebar */
+
+.law-requirement-sidebar {
+    position: absolute;
+    width: 250px;
+    z-index: 10;
+    background: #969696;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-left: 15px;
+    font-family: sans-serif
+}
+
+/* styles for text areas in the sidebar */
+#town, .description-text {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+#requirement, .description-text {
+    font-size: 14px;
+    margin-bottom: 15px;
+}

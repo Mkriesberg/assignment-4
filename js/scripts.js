@@ -116,4 +116,18 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             map.getCanvas().style.cursor = ''
         });
 
+        map.on('click', 'mass-municipal-borders-fills', (e) => {
+            
+            const clickedFeature = e.features[0]
+            console.log(clickedFeature)
+            $("#town").text(clickedFeature.properties.TOWN)
+            $("#requirement").text(clickedFeature.properties.Requirement)
+        });
+        
+
+        
+        //Use query to inject 
+
+        //clickedFeature.properties.name and clickedFeature.properties.descriptiveText
+
     });
