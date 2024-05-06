@@ -19,6 +19,11 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             generateId: true
         });
 
+        map.addSource('mass-municipal-town-centroids', {
+            type: 'geojson',
+            data: "data/mass-municipal-town-centroids.geojson"
+        });
+
         /* Deduplicate GeoJSON data based on town name. Need to analyze further
     var townsData = {};
     townsData.type = 'FeatureCollection';
@@ -60,7 +65,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         map.addLayer({
             id: 'mass-municipal-borders-labels',
             type: 'symbol',
-            source: "mass-municipal-borders",
+            source: "mass-municipal-town-centroids",
             layout: {
                 'text-field': ['get', 'TOWN'],
                 'text-font': ['Arial Unicode MS Bold'],
@@ -121,8 +126,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             const clickedFeature = e.features[0]
             console.log(clickedFeature)
             $("#town").text(clickedFeature.properties.TOWN)
-            $("#requirement").text(clickedFeature.properties.Requirement)
-            $("#zoning-capacity").text(clickedFeature.properties.ZoneCapacity)
+            //$("#requirement").text(clickedFeature.properties.Requirement)
+            //$("#zoning-capacity").text(clickedFeature.properties.ZoneCapacity)
         });
         
 
