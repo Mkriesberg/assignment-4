@@ -11,42 +11,53 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
     map.on('load', () => {
 
         console.log('Loaded')
-        // add first map layer that has town polygons and borders
-        map.addSource("mass-municipal-borders", {
-            'type': 'geojson',
-            'data': "data/mass-municipal-borders.geojson",
-            generateId: true
-        });
-        //add second map layer that has town center points
+        
+        //Add town center point source data
         map.addSource('mass-municipal-town-centroids', {
             type: 'geojson',
             data: "data/mass-municipal-town-centroids.geojson"
         });
-        //remove extra labels 
+        //remove extra labels from mapbox map
         map.removeLayer('settlement-major-label')
         map.removeLayer('settlement-minor-label')
         map.removeLayer('settlement-subdivision-label')
         
-        //add layers that fill town polygons, create border lines, and denote town name
+        
 
-        //filter to rapid transit communities
-        var filteredFeatures = mass-municipal-borders.features.filter(function(feature) {
-            // Check if the feature has a certain property and meets a specific condition
+        //create variable that filters to rapid transit communities
+        var RapidTransitFeatures = massMunicipalBorders.features.filter(function(feature) {
             return feature.properties.Requirement === 'Rapid Transit Community';
         });
 
-        map.addSource('filtered-mass-municipal-borders', {
+        //create variable that filters to non-rapid transit communities
+        var nonRapidTransitFeatures = massMunicipalBorders.features.filter(function(feature) {
+            return feature.properties.Requirement !== 'Rapid Transit Community';
+        });
+
+        //add source for rapid transit communities borders
+        map.addSource('rapid-transit-borders', {
             type: 'geojson',
             data: {
                 type: 'FeatureCollection',
-                features: filteredFeatures
+                features: RapidTransitFeatures
             }
         });
         
+
+        //add source for non rapid transit communities borders
+        map.addSource('non-rapid-transit-borders', {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: nonRapidTransitFeatures
+            }
+        });
+        
+        //add layer that fills polygons in rapid transit communities 
         map.addLayer({
-            'id': 'mass-municipal-borders-fills',
+            'id': 'rapid-transit-borders-fills',
             'type': 'fill',
-            'source': "filtered-mass-municipal-borders",
+            'source': "rapid-transit-borders",
             'layout': {},
             'paint': {
                 'fill-color': '#627BC1',
@@ -58,17 +69,30 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
                 ]
             }
         });
-
+        
+        //add layer that creates border line for rapid transit communities
         map.addLayer({
-            'id': 'mass-municipal-borders-line',
+            'id': 'rapid-transit-borders-line',
             'type': 'line',
-            'source': "mass-municipal-borders",
+            'source': "rapid-transit-borders",
             'layout': {},
             'paint': {
                 'line-color': '#000',
             }
         });
 
+        //add layer that creates border line for non rapid transit communities
+        map.addLayer({
+            'id': 'non-rapid-transit-borders-line',
+            'type': 'line',
+            'source': "non-rapid-transit-borders",
+            'layout': {},
+            'paint': {
+                'line-color': '#000',
+            }
+        });
+
+        //add layer that creates town labels
         map.addLayer({
             id: 'mass-municipal-borders-labels',
             type: 'symbol',
@@ -95,17 +119,17 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
 
         // When the user moves their mouse over the municipal-fill layer, we'll update the
         // feature state for the feature under the mouse.
-        map.on('mousemove', 'mass-municipal-borders-fills', (e) => {
+        map.on('mousemove', 'rapid-transit-borders-fills', (e) => {
             if (e.features.length > 0) {
                 if (hoveredPolygonId !== null) {
                     map.setFeatureState(
-                        { source: "mass-municipal-borders", id: hoveredPolygonId },
+                        { source: "rapid-transit-borders", id: hoveredPolygonId },
                         { hover: false }
                     );
                 }
                 hoveredPolygonId = e.features[0].id;
                 map.setFeatureState(
-                    { source: "mass-municipal-borders", id: hoveredPolygonId },
+                    { source: "rapid-transit-borders", id: hoveredPolygonId },
                     { hover: true }
                 );
             }
@@ -115,10 +139,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
 
         // When the mouse leaves the municipal-fill layer, update the feature state of the
         // previously hovered feature.
-        map.on('mouseleave', 'mass-municipal-borders-fills', () => {
+        map.on('mouseleave', 'rapid-transit-borders-fills', () => {
             if (hoveredPolygonId !== null) {
                 map.setFeatureState(
-                    { source: "mass-municipal-borders", id: hoveredPolygonId },
+                    { source: "rapid-transit-borders", id: hoveredPolygonId },
                     { hover: false }
                 );
             }
@@ -127,11 +151,12 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             map.getCanvas().style.cursor = ''
         });
 
-        map.on('click', 'mass-municipal-borders-fills', (e) => {
+        map.on('click', 'rapid-transit-borders-fills', (e) => {
             
             const clickedFeature = e.features[0]
             console.log(clickedFeature)
-            $("#town").text(clickedFeature.properties.TOWN)
+            const townName = clickedFeature.properties.TOWN;
+            $("#town").text('As of May, 2024', $,{townName}, 'is compliant')
             //$("#requirement").text(clickedFeature.properties.Requirement)
             //$("#zoning-capacity").text(clickedFeature.properties.ZoneCapacity)
         });
