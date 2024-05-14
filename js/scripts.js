@@ -162,9 +162,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             const clickedFeature = e.features[0]
             console.log(clickedFeature)
             const townName = clickedFeature.properties.TOWN;
-            $("#town").text('As of May, 2024', $,{townName}, 'is compliant')
-            //$("#requirement").text(clickedFeature.properties.Requirement)
-            //$("#zoning-capacity").text(clickedFeature.properties.ZoneCapacity)
+            const status = clickedFeature.properties.Status;
+            const zoneCapacity = clickedFeature.properties.ZoneCapacity;
+            const planningDept = clickedFeature.properties.DeptLink
+            
+            $("#compliance-status").text('As of May, 2024, ${townName} is ${status}')
+            $("#zone-capacity").text('The new zoning district must have a minimum zoning capacity of ${zoneCapacity} units')
+            $("#planning-department").text('To find out more information the new district, visit the planning department website <a href= ${planningDept}>here</a>')
         });
     
 

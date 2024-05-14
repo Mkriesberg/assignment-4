@@ -46,16 +46,17 @@ body { margin: 0; padding: 0; }
 }
 
 /* styles for text areas in the sidebar */
-#town, .description-text {
+#compliance-status, .description-text {
     font-size: 14px;
     margin-bottom: 15px;
   }
-#requirement, .description-text {
+
+#zone-capacity, .description-text {
     font-size: 14px;
     margin-bottom: 15px;
 }
 
-#zoning-capacity, .description-text {
+#planning-department, .description-text {
     font-size: 14px;
     margin-bottom: 15px;
 }
