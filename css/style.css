@@ -5,6 +5,7 @@ body { margin: 0; padding: 0; }
 .intro-sidebar {
     position: absolute;
     width: 300px;
+    height: fit-content;
     z-index: 10;
     background: #fcfafa;
     padding: 12px;
@@ -16,11 +17,11 @@ body { margin: 0; padding: 0; }
 
 /* styles for text areas in the sidebar */
 #explainer, .description-text {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 15px;
   }
 #actionstep, .description-text {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 15px;
 }
   
@@ -29,16 +30,6 @@ body { margin: 0; padding: 0; }
       font-weight: 700;
       margin-bottom:8px;
   }
-
-  /* Style the labels */
-  
-  .label {
-            font: 12px/20px 'Arial', sans-serif;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 5px;
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
 
 /* Town info sidebar */
 

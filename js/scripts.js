@@ -7,23 +7,21 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
         zoom: 10.6
     });
     
-
-    map.on('load', () => {
+        map.on('load', () => {
 
         console.log('Loaded')
         
-        //Add town center point source data
-        map.addSource('mass-municipal-town-centroids', {
-            type: 'geojson',
-            data: "data/mass-municipal-town-centroids.geojson"
-        });
         //remove extra labels from mapbox map
         map.removeLayer('settlement-major-label')
         map.removeLayer('settlement-minor-label')
         map.removeLayer('settlement-subdivision-label')
         
+        //Add town center point source data
+        map.addSource('mass-municipal-town-centroids', {
+            type: 'geojson',
+            data: "data/mass-municipal-town-centroids.geojson"
+        });     
         
-
         //create variable that filters to rapid transit communities
         var RapidTransitFeatures = massMunicipalBorders.features.filter(function(feature) {
             return feature.properties.Requirement === 'Rapid Transit Community';
@@ -78,6 +76,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             'layout': {},
             'paint': {
                 'line-color': '#000',
+                'line-width': {
+                    stops: [[8, .5], [10.6, 1], [15,5]]
+                }
             }
         });
 
@@ -89,6 +90,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             'layout': {},
             'paint': {
                 'line-color': '#000',
+                'line-width': {
+                    stops: [[8, .5], [10.6, 1], [15,5]]
+                }
             }
         });
 
@@ -100,7 +104,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             layout: {
                 'text-field': ['get', 'TOWN'],
                 'text-font': ['Arial Unicode MS Bold'],
-                'text-size': 12
+                'text-size': {
+                   stops: [[8, 7], [10.6, 9], [15,15]]
+                }
             },
             paint: {
                 'text-color': '#000'
