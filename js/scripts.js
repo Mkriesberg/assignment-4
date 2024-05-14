@@ -170,6 +170,25 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwM
             $("#zone-capacity").text('The new zoning district must have a minimum zoning capacity of ${zoneCapacity} units')
             $("#planning-department").text('To find out more information the new district, visit the planning department website <a href= ${planningDept}>here</a>')
         });
+
+        //added fly to feature
+        map.on('click', 'mass-municipal-borders-labels', (e) => {
+            
+            map.flyTo({
+                center: e.features[0].geometry.coordinates,
+                zoom: 12 
+            });
+
+        //change to pointer when on the town name
+            map.on('mouseenter', 'mass-municipal-borders-labels', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'mass-municipal-borders-labels', () => {
+            map.getCanvas().style.cursor = '';
+        });
+
     
 
-    });
+    })});
