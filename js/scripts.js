@@ -90,7 +90,7 @@ const map = new mapboxgl.Map({
                 'text-field': ['get', 'TOWN'],
                 'text-font': ['Arial Unicode MS Bold'],
                 'text-size': {
-                   stops: [[8, 7], [10.6, 8.5], [11.5,14], [12.3,15]]
+                   stops: [[10.6, 9], [11.5,10], [12.3,12]]
                 }
             },
             paint: {
