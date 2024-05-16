@@ -1,11 +1,12 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibWtyaWVzYmVyZyIsImEiOiJjbHVsdTVocTgweXhzMmlwMWZoNDk2dDdhIn0.-0g7mENM-vtH3DoHLXaHKg';
 
-var CenterStart = [-71.12556, 42.31758]; // Replace with your initial longitude and latitude
-var ZoomStart = 10.6; // Replace with your initial zoom level    
+//create variables for starting point and zoom level
+var CenterStart = [-71.12556, 42.31758]; 
+var ZoomStart = 10.6;    
 
+// Pull mapbox style and set center point and zoom
 const map = new mapboxgl.Map({
         container: 'map',
-        // Pull mapbox style and set center point and zoom
         style: 'mapbox://styles/mapbox/streets-v12',
         center: CenterStart,
         zoom: ZoomStart
@@ -112,6 +113,7 @@ const map = new mapboxgl.Map({
             }
         });
 
+        //create functionality that when you click on a town, it provides key information
         map.on('click', 'rapid-transit-borders-fills', (e) => {
             
             const clickedFeature = e.features[0]
@@ -126,7 +128,7 @@ const map = new mapboxgl.Map({
             $("#planning-department").html(`To learn more about the new district, visit the planning department website <strong><a href="${planningDept}" target="_blank">here</a>`)
         });
 
-        //added fly to feature
+        //added fly-to feature when click on town name
         map.on('click', 'mass-municipal-borders-labels', (e) => {
             
             map.flyTo({
@@ -144,14 +146,15 @@ const map = new mapboxgl.Map({
             map.getCanvas().style.cursor = '';
         });
 
+        //button click resets map to original zoom and location
         document.querySelector('.reset-button').addEventListener('click', function() {
             map.flyTo({
                 center: CenterStart,
                 zoom: ZoomStart,
-                essential: true // this animation is considered essential with respect to prefers-reduced-motion
+                essential: true 
             });
 
-            // Clear the text in the law-requirement sidebar
+            // button click clears the text in the law-requirement section of the sidebar
             document.getElementById('compliance-status').innerHTML = '';
             document.getElementById('zone-capacity').innerHTML = '';
             document.getElementById('planning-department').innerHTML = '';

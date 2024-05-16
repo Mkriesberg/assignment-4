@@ -1,8 +1,8 @@
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 
-/* add a floating sidebar in the top left */
-.intro-sidebar {
+/* add a sidebar in the top left */
+.sidebar {
     position: absolute;
     width: 300px;
     height: fit-content;
@@ -25,7 +25,7 @@ body { margin: 0; padding: 0; }
     color: #627BC1;
 }
 
-#actionstep, .description-text {
+#action-step, .description-text {
     font-size: 16px;
     margin-bottom: 15px;
 }
@@ -36,19 +36,6 @@ body { margin: 0; padding: 0; }
       margin-bottom:8px;
   }
 
-/* Town info sidebar */
-
-.law-requirement-sidebar {
-    position: absolute;
-    width: 300px;
-    z-index: 2;
-    background: #fcfafa;
-    padding: 12px;
-    border-radius: 8px;
-    font-family: sans-serif
-}
-
-/* styles for text areas in the sidebar */
 #compliance-status, .description-text {
     font-size: 15px;
     margin-bottom: 15px;
@@ -64,6 +51,7 @@ body { margin: 0; padding: 0; }
     margin-bottom: 15px;
 }
 
+/* style for button */
 .reset-button {
   align-items: center;
   background: #fcfafa;
@@ -87,8 +75,6 @@ body { margin: 0; padding: 0; }
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  position: absolute;
-  z-index: 3;
 }
 
 .reset-button:hover {
